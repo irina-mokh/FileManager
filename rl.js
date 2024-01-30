@@ -4,7 +4,8 @@ import {
   stdin as input,
   stdout as output,
 } from 'node:process';
-import { fontLog } from './constants/index.js';
+import { fontLog } from './constants.js';
+import { handleCLI } from './handlers/index.js';
 
 export const runCLI = (username) => {
 	const rl = createInterface({ input, output });
@@ -14,9 +15,8 @@ export const runCLI = (username) => {
     if (input === '.exit') {
       rl.close();
     } else {
+      handleCLI(input.trim());
       console.log(`You are currently in ${cwd()}`);
-      //handle
-      // console.log(input);
       rl.prompt();
     }
   })
