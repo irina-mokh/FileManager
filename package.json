@@ -1,0 +1,10 @@
+{
+  "name": "filemanager",
+  "version": "1.0.0",
+  "description": "node js file manager",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "irina-mokh",
+  "license": "ISC"
+}
