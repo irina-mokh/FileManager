@@ -14,7 +14,9 @@ export const runCLI = (username) => {
     if (input === '.exit') {
       rl.close();
     } else {
-      // handle
+      console.log(`You are currently in ${cwd()}`);
+      //handle
+      // console.log(input);
       rl.prompt();
     }
   })
