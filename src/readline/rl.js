@@ -4,7 +4,7 @@ import {
   stdin as input,
   stdout as output,
 } from 'node:process';
-import { fontLog } from './constants.js';
+import { fontLog } from '../utils/constants.js';
 import { handleCLI } from '../handlers/index.js';
 
 export const runCLI = (username) => {

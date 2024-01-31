@@ -2,7 +2,7 @@ import { homedir } from 'node:os';
 import { cwd } from 'node:process'
 import path from 'node:path';
 import { readdir } from 'node:fs/promises';
-import { log } from '../utils.js';
+import { log } from '../utils/utils.js';
 
 export const navUp = () => {
 	if (homedir() !== cwd()) {
@@ -14,6 +14,8 @@ export const navUp = () => {
 
 export const navCD = (args) => {
 	try {
+		// remove " from path
+		args = args.map(p => p.replaceAll('"', ''));
     process.chdir(path.join(...args));
   } catch (err) {
 		log.err(err);

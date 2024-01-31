@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "description": "node js file manager",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "author": "irina-mokh",
   "license": "ISC"
