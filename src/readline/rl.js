@@ -5,7 +5,7 @@ import {
   stdout as output,
 } from 'node:process';
 import { fontLog } from './constants.js';
-import { handleCLI } from './handlers/index.js';
+import { handleCLI } from '../handlers/index.js';
 
 export const runCLI = (username) => {
 	const rl = createInterface({ input, output });

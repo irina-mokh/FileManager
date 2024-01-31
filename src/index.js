@@ -1,6 +1,6 @@
 import { cwd } from 'node:process'
 import { getUserName, log } from './utils.js';
-import { runCLI } from './rl.js';
+import { runCLI } from './readline/rl.js';
 import { homedir } from 'node:os';
 
 function run () {
