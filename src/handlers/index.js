@@ -18,7 +18,7 @@ export const handleCLI = (input) => {
 			navList(args);
 			break;
 		default: {
-			log.err('Unknown command');
+			log.err('Invalid input');
 		}
 	}
 }

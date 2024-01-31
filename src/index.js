@@ -3,7 +3,7 @@ import { getUserName, log } from './utils/utils.js';
 import { runCLI } from './readline/rl.js';
 import { homedir } from 'node:os';
 
-function run () {
+async function run () {
 	const userName = getUserName();
 	log.accent(`Welcome to the File Manager, ${userName}!`);
 	process.chdir(homedir());
@@ -11,4 +11,8 @@ function run () {
 	runCLI(userName);
 };
 
-run();
+try {
+	await run();
+} catch (err) {
+	log.err(err);
+}

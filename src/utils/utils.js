@@ -30,7 +30,7 @@ export const log = {
 		console.log(fontLog.Bright, msg);
 	},
 	err: (msg) => {
-		console.log(fontLog.FgRed, msg);
+		console.log(fontLog.FgRed, 'Operation failed: ' +  msg);
 	},
 	// success:
 }
