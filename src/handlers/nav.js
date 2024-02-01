@@ -4,37 +4,42 @@ import path from 'node:path';
 import { readdir } from 'node:fs/promises';
 import { log } from '../utils/utils.js';
 
-export const navUp = () => {
-	if (homedir() !== cwd()) {
-		process.chdir(path.resolve('..'));
-	} else {
-		log.warn('Already in home directory');
+export const nav  = {
+	up: () => {
+		process.chdir('..');
+	},
+
+	cd: (args) => {
+		if (args.length > 1) {
+			log.err('Too many arguments');
+		}
+		try {
+			// remove quotes from path
+			args = args.map(p => p.replaceAll('"', ''));
+			args = args.map(p => p.replaceAll('\'', ''));
+			process.chdir(args[0]);
+
+		} catch (err) {
+			log.err(err);
+		} 
+	},
+
+	list: async (args) => {
+		if (args.length > 0) {
+			log.err('Too many arguments, works only for current directory');
+		}
+		try {
+			const data = await readdir(cwd(), { withFileTypes: true });
+
+			const res = data
+				.sort((a, b) => a.name - b.name)
+				.sort((a, b) => a.isFile()- b.isFile())
+				.map(item => ({ Name: item.name, Type: item.isFile() ? "file" : 'directory'}))
+
+			console.log('\n');
+			console.table(res);
+		} catch (err){
+			log.err(err);
+		}
 	}
-}
-
-export const navCD = (args) => {
-	try {
-		// remove " from path
-		args = args.map(p => p.replaceAll('"', ''));
-    process.chdir(path.join(...args));
-  } catch (err) {
-		log.err(err);
-	} 
-}
-
-export const navList = async (args) => {
-	try {
-		const data = await readdir(path.resolve(...args), { withFileTypes: true });
-
-		const res = data
-			.sort((a, b) => a.name - b.name)
-			.sort((a, b) => a.isFile()- b.isFile())
-      .map(item => ({ Name: item.name, Type: item.isFile() ? "file" : 'directory'}))
-
-		console.log('\n');
-		console.table(res);
-
-  } catch (err){
-		log.err(err);
-  }
 }

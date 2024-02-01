@@ -1,5 +1,6 @@
 import { fontLog } from '../utils/constants.js';
-import { navUp, navCD, navList } from './nav.js';
+import { nav } from './nav.js';
+import { files } from './files.js';
 import { log } from '../utils/utils.js';
 
 export const handleCLI = (input) => {
@@ -9,13 +10,17 @@ export const handleCLI = (input) => {
 	const [command, ...args] = input.split(' ');
 	switch (command){
 		case 'up': 
-			navUp();
+			nav.up();
 			break;
 		case 'cd': 
-			navCD(args);
+			nav.cd(args);
 			break;
 		case 'ls':
-			navList(args);
+			nav.list(args);
+			break;
+
+		case 'cat':
+			files.catenate(args);
 			break;
 		default: {
 			log.err('Invalid input');
