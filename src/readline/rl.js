@@ -6,6 +6,7 @@ import {
 } from 'node:process';
 import { fontLog } from '../utils/constants.js';
 import { handleCLI } from '../handlers/index.js';
+import { log, logCwd } from '../utils/utils.js';
 
 export const runCLI = (username) => {
 	const rl = createInterface({ input, output });
@@ -16,7 +17,7 @@ export const runCLI = (username) => {
       rl.close();
     } else {
       handleCLI(input.trim());
-      console.log(`You are currently in ${cwd()}`);
+      logCwd();
       rl.prompt();
     }
   })

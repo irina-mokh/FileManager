@@ -1,6 +1,10 @@
 import { fontLog } from './constants.js';
-import { dirname } from 'node:path';
+import  { dirname } from 'node:path';
+import { cwd } from 'node:process';
+import path, { join } from 'node:path';
+
 import { fileURLToPath } from 'node:url';
+import { access } from 'node:fs/promises';
 
 export const getUserName = () => {
 	let username;
@@ -29,8 +33,48 @@ export const log = {
 	accent: (msg) => {
 		console.log(fontLog.Bright, msg);
 	},
+	system: (msg) => {
+		console.log(fontLog.FgWhite, msg);
+	},
+	success: (msg) => {
+		console.log(fontLog.FgGreen, msg);
+	},
 	err: (msg) => {
 		console.log(fontLog.FgRed, 'Operation failed: ' +  msg);
 	},
+	content: (text) => {
+		console.log(fontLog.FgBlue, text);
+	},
+	gray: (text) => {
+		console.log(fontLog.FgGray, text);
+	}
+
 	// success:
+}
+
+export const logCwd = () => {
+	log.gray(`You are currently in ${cwd()}`);
+}
+
+export const validateSyntax = (syntax, n, args) => {
+	if (args.length > n) {
+		if (n===0) {
+			log.warn(`No arguments allowed with this command`);
+		} else {
+			log.warn(`Only ${n} arguments allowed for this command,`);
+		}
+		log.warn(`Use next syntax: ${syntax}`);
+		return false;
+	} else { 
+		return true
+	}
+}
+
+export const exists = async (p) => {
+	try {
+		await access(join(cwd(), p));
+		return true;
+	} catch {
+		return false;
+	}
 }

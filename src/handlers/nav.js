@@ -10,9 +10,6 @@ export const nav  = {
 	},
 
 	cd: (args) => {
-		if (args.length > 1) {
-			log.err('Too many arguments');
-		}
 		try {
 			// remove quotes from path
 			args = args.map(p => p.replaceAll('"', ''));
@@ -24,10 +21,7 @@ export const nav  = {
 		} 
 	},
 
-	list: async (args) => {
-		if (args.length > 0) {
-			log.err('Too many arguments, works only for current directory');
-		}
+	list: async () => {
 		try {
 			const data = await readdir(cwd(), { withFileTypes: true });
 
