@@ -1,4 +1,5 @@
 import { fontLog } from '../utils/constants.js';
+import { system } from './system.js';
 import { nav } from './nav.js';
 import { files } from './files.js';
 import { validateSyntax, log } from '../utils/utils.js';
@@ -35,6 +36,11 @@ export const handleCLI = (input) => {
 				validateSyntax('rm <path_to_file>', 1, args) && files.remove(args[0]);
 				break;
 			
+		case 'os':
+				validateSyntax('os --EOL | --cpus |--homedir | --username | --architecture', 1, args) && system(args[0]);
+				break;
+
+		
 		default: {
 			log.err('Invalid input');
 		}
