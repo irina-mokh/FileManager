@@ -1,6 +1,7 @@
 import { fontLog } from '../utils/constants.js';
 import { system } from './system.js';
 import { nav } from './nav.js';
+import { hashFile } from './hash.js';
 import { files } from './files.js';
 import { validateSyntax, log } from '../utils/utils.js';
 
@@ -40,6 +41,9 @@ export const handleCLI = (input) => {
 				validateSyntax('os --EOL | --cpus |--homedir | --username | --architecture', 1, args) && system(args[0]);
 				break;
 
+		case 'hash':
+			validateSyntax('hash <path_to_file>', 1, args) && hashFile(args[0]);
+			
 		
 		default: {
 			log.err('Invalid input');
