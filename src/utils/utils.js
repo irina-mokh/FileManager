@@ -1,7 +1,7 @@
 import { fontLog } from './constants.js';
 import  { dirname } from 'node:path';
 import { cwd } from 'node:process';
-import path, { join } from 'node:path';
+import  { join } from 'node:path';
 
 import { fileURLToPath } from 'node:url';
 import { access } from 'node:fs/promises';
@@ -48,8 +48,6 @@ export const log = {
 	gray: (text) => {
 		console.log(fontLog.FgGray, text);
 	}
-
-	// success:
 }
 
 export const logCwd = () => {
@@ -57,7 +55,7 @@ export const logCwd = () => {
 }
 
 export const validateSyntax = (syntax, n, args) => {
-	if (args.length > n) {
+	if (args && args.length > n) {
 		if (n===0) {
 			log.warn(`No arguments allowed with this command`);
 		} else {

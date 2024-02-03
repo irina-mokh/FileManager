@@ -6,12 +6,12 @@ import {
 } from 'node:process';
 import { fontLog } from '../utils/constants.js';
 import { handleCLI } from '../handlers/index.js';
-import { log, logCwd } from '../utils/utils.js';
+import { logCwd } from '../utils/utils.js';
 
 export const runCLI = (username) => {
 	const rl = createInterface({ input, output });
 	rl.prompt();
-
+  
 	rl.on('line', input => {
     if (input === '.exit') {
       rl.close();

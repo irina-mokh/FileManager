@@ -1,13 +1,13 @@
 import { cwd } from 'node:process';
 import { exists, log } from '../utils/utils.js';
-import path, { join } from 'node:path';
+import { join } from 'node:path';
 import { writeFile, rename, rm } from 'node:fs/promises';
-import { createReadStream, createWriteStream, existsSync,  } from 'node:fs';
+import { createReadStream, createWriteStream } from 'node:fs';
 
 export const files  = {
 	catenate: async (filePath) => {
 		if (await exists(filePath)) {
-			const readStream = createReadStream(path.join(cwd(), filePath), 'utf-8');
+			const readStream = createReadStream(join(cwd(), filePath), 'utf-8');
 			readStream.on('data', (res) => {
 				log.content(res) 
 		}); 
@@ -19,7 +19,7 @@ export const files  = {
 	
 	add: async (fileName) => {
 		try {
-			await writeFile(path.join(cwd(), fileName), '', {flag: 'wx'});
+			await writeFile(join(cwd(), fileName), '', {flag: 'wx'});
 			log.success(`${fileName} successfully created!`)
 		} catch (err) {
 			log.err('File creation operation failed: ', err);
@@ -41,9 +41,9 @@ export const files  = {
 
 	copy: async (filePath, dirPath) => {
 		if (await exists(filePath) && await exists(dirPath)) {
-			const readable = createReadStream(path.join(cwd(), filePath), { encoding: 'utf8'});
+			const readable = createReadStream(join(cwd(), filePath), { encoding: 'utf8'});
 
-			const writable = createWriteStream(path.join(cwd(), dirPath, filePath));
+			const writable = createWriteStream(join(cwd(), dirPath, filePath));
 
 			try {
 				readable.pipe(writable);
@@ -59,7 +59,7 @@ export const files  = {
 
 	remove: async (filePath) => {
 		try {
-			await rm(path.join(cwd(), filePath));
+			await rm(join(cwd(), filePath));
 			log.success(`File ${filePath}	has been removed successfully!`);
 		} catch (err){
 			log.err('File removing failed: ' + err);

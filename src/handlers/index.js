@@ -4,15 +4,29 @@ import { hashFile } from './hash.js';
 import { files } from './files.js';
 import { validateSyntax, log } from '../utils/utils.js';
 import { zip } from './zip.js';
+import { resolve } from 'node:path';
 
 export const handleCLI = (input) => {
-	const [command, ...args] = input.split(' ');
+	const [command] = input.split(' ');
+	const argsStr = input.slice(command.length + 1); 
+
+	//split arguments with single quotes
+	const args = argsStr.match(/"[^"]+"|[^\s]+/g);
+
+	if (args && args.length > 0) {
+		args.forEach((arg, i, arr) => {
+			console.log('replacing...');
+			arr[i] = arg.replace(/["']/g, "");
+		});
+	}
+	console.log('ARGS:', args);
 	switch (command){
 		case 'up': 
 		  validateSyntax('up', 0, args) && nav.up();
 			break;
 		case 'cd': 
-			validateSyntax('cd <directory_name>', 1, args) && nav.cd(args);
+			const absPath = resolve(argsStr.replaceAll('"',''). replaceAll('\'', ''));
+			nav.cd(absPath);
 			break;
 		case 'ls':
 			validateSyntax('ls', 0, args) && nav.list(args);

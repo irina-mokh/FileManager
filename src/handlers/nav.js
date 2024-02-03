@@ -1,6 +1,4 @@
-import { homedir } from 'node:os';
 import { cwd } from 'node:process'
-import path from 'node:path';
 import { readdir } from 'node:fs/promises';
 import { log } from '../utils/utils.js';
 
@@ -9,13 +7,9 @@ export const nav  = {
 		process.chdir('..');
 	},
 
-	cd: (args) => {
+	cd: (path) => {
 		try {
-			// remove quotes from path
-			args = args.map(p => p.replaceAll('"', ''));
-			args = args.map(p => p.replaceAll('\'', ''));
-			process.chdir(args[0]);
-
+			process.chdir(path);
 		} catch (err) {
 			log.err(err);
 		} 
