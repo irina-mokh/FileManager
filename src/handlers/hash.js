@@ -8,5 +8,7 @@ export const hashFile = async (filePath) => {
 		const data = await readFile(filePath);
 		const hash = createHash('sha256').update(data).digest('hex');
 		log.success(`File hash: ${hash}`);
+	} else {
+		log.err(`File with name ${filePath} does not exists`);
 	}
 }

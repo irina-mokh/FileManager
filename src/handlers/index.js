@@ -1,9 +1,9 @@
-import { fontLog } from '../utils/constants.js';
 import { system } from './system.js';
 import { nav } from './nav.js';
 import { hashFile } from './hash.js';
 import { files } from './files.js';
 import { validateSyntax, log } from '../utils/utils.js';
+import { zip } from './zip.js';
 
 export const handleCLI = (input) => {
 	const [command, ...args] = input.split(' ');
@@ -43,7 +43,14 @@ export const handleCLI = (input) => {
 
 		case 'hash':
 			validateSyntax('hash <path_to_file>', 1, args) && hashFile(args[0]);
-			
+			break;
+
+		case 'compress':
+			validateSyntax('compress <path_to_file> <path_to_output_file>', 2, args) && zip(...args.slice(0,2));
+			break;
+		case 'decompress':
+				validateSyntax('decompress <path_to_file> <path_to_output_file>', 2, args) && zip(...args.slice(0,2), true);
+				break;
 		
 		default: {
 			log.err('Invalid input');
