@@ -23,7 +23,7 @@ export const runCLI = (username) => {
   })
 
   rl.on('close', () => {
-    console.log(fontLog.Bright, `Thank you for using File Manager, ${username}, goodbye!`);
+    console.log(fontLog.Bright, `\nThank you for using File Manager, ${username}, goodbye!`);
     process.exit(0);
   })
 }

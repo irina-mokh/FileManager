@@ -4,7 +4,7 @@ node js file manager
 ## to run app 
 ` npm run start -- --username=your_username `
 
-## ! When name has a space in it use single quotes:  ` cd 'path to file' `
+## ! When name has a space in it use double quotes:  ` cd "path to file" `
 
    # List of operations and their syntax:
 - Navigation & working directory (nwd)

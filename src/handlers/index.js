@@ -15,11 +15,9 @@ export const handleCLI = (input) => {
 
 	if (args && args.length > 0) {
 		args.forEach((arg, i, arr) => {
-			console.log('replacing...');
 			arr[i] = arg.replace(/["']/g, "");
 		});
 	}
-	console.log('ARGS:', args);
 	switch (command){
 		case 'up': 
 		  validateSyntax('up', 0, args) && nav.up();

@@ -1,7 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { createHash} from 'node:crypto';
-import { log } from '../utils/utils.js';
-
+import { log, exists } from '../utils/utils.js';
 
 export const hashFile = async (filePath) => {
 	if (await exists(filePath))  {

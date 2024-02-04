@@ -1,4 +1,3 @@
-import { cwd } from 'node:process'
 import { getUserName, log, logCwd } from './utils/utils.js';
 import { runCLI } from './readline/rl.js';
 import { homedir } from 'node:os';

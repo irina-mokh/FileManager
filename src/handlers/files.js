@@ -48,6 +48,8 @@ export const files  = {
 			try {
 				readable.pipe(writable);
 				log.success(`File ${filePath}	has been copied successfully!`);
+				readable.destroy();
+
 			} catch (err){
 				log.err('File copying failed: ' + err);
 			}

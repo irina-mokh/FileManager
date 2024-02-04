@@ -1,9 +1,6 @@
 import { fontLog } from './constants.js';
-import  { dirname } from 'node:path';
-import { cwd } from 'node:process';
 import  { join } from 'node:path';
-
-import { fileURLToPath } from 'node:url';
+import { cwd } from 'node:process';
 import { access } from 'node:fs/promises';
 
 export const getUserName = () => {
@@ -21,10 +18,6 @@ export const getUserName = () => {
 		return username;
 	}
 }
-
-
-export const getDir = (url) => dirname(fileURLToPath(url));
-
 
 export const log = {
 	warn: (msg) => {
