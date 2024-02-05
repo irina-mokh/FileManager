@@ -48,12 +48,12 @@ export const logCwd = () => {
 }
 
 export const validateSyntax = (syntax, n, args) => {
-	if (args && args.length > n) {
-		if (n===0) {
-			log.warn(`No arguments allowed with this command`);
-		} else {
-			log.warn(`Only ${n} arguments allowed for this command,`);
-		}
+	if (!args && n > 0) {
+		log.warn(`Use next syntax: ${syntax}`);
+		return false;
+	}
+	if (args && args.length !== n) {
+		log.warn(`${n} arguments required for this command`);
 		log.warn(`Use next syntax: ${syntax}`);
 		return false;
 	} else { 

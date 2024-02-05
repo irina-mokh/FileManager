@@ -6,7 +6,7 @@ import { validateSyntax, log } from '../utils/utils.js';
 import { zip } from './zip.js';
 import { resolve } from 'node:path';
 
-export const handleCLI = (input) => {
+export const handleCLI = async (input) => {
 	const [command] = input.split(' ');
 	const argsStr = input.slice(command.length + 1); 
 
@@ -24,7 +24,7 @@ export const handleCLI = (input) => {
 			break;
 		case 'cd': 
 			const absPath = resolve(argsStr.replaceAll('"',''). replaceAll('\'', ''));
-			nav.cd(absPath);
+			validateSyntax('cd <path>', 1, args) && nav.cd(absPath);
 			break;
 		case 'ls':
 			validateSyntax('ls', 0, args) && nav.list(args);
@@ -43,15 +43,18 @@ export const handleCLI = (input) => {
 			validateSyntax('cp <path_to_file> <path_to_new_directory>', 2, args) && files.copy(...args.slice(0,2));
 			break;
 		case 'mv':
-			validateSyntax('mv <path_to_file> <path_to_new_directory>', 2, args) && files.copy(...args.slice(0,2), files.remove(args[0]));
+			if (validateSyntax('mv <path_to_file> <path_to_new_directory>', 2, args)){
+				await files.copy(...args.slice(0,2));
+				files.remove(args[0]);
+			}
 			break;
 		case 'rm':
-				validateSyntax('rm <path_to_file>', 1, args) && files.remove(args[0]);
-				break;
+			validateSyntax('rm <path_to_file>', 1, args) && files.remove(args[0]);
+			break;
 			
 		case 'os':
-				validateSyntax('os --EOL | --cpus |--homedir | --username | --architecture', 1, args) && system(args[0]);
-				break;
+			validateSyntax('os --EOL | --cpus |--homedir | --username | --architecture', 1, args) && system(args[0]);
+			break;
 
 		case 'hash':
 			validateSyntax('hash <path_to_file>', 1, args) && hashFile(args[0]);
